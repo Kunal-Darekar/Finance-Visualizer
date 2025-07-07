@@ -19,7 +19,8 @@ export async function GET(request: Request, { params }: RouteParams) {
       );
     }
     return NextResponse.json(transaction);
-  } catch (error) {
+  } catch (err) {
+    console.error('Failed to fetch transaction:', err);
     return NextResponse.json(
       { error: 'Failed to fetch transaction' },
       { status: 500 }
@@ -43,7 +44,8 @@ export async function PUT(request: Request, { params }: RouteParams) {
       );
     }
     return NextResponse.json(transaction);
-  } catch (error) {
+  } catch (err) {
+    console.error('Failed to update transaction:', err);
     return NextResponse.json(
       { error: 'Failed to update transaction' },
       { status: 500 }
@@ -62,7 +64,8 @@ export async function DELETE(request: Request, { params }: RouteParams) {
       );
     }
     return NextResponse.json({ message: 'Transaction deleted successfully' });
-  } catch (error) {
+  } catch (err) {
+    console.error('Failed to delete transaction:', err);
     return NextResponse.json(
       { error: 'Failed to delete transaction' },
       { status: 500 }

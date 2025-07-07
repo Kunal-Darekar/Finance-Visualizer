@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db/connection';
 import Budget from '@/lib/db/models/Budget';
+import { MongoServerError } from 'mongodb';
 
 export async function GET(request: Request) {
   try {
@@ -78,7 +79,7 @@ export async function POST(request: Request) {
       );
     }
     // Handle duplicate key error (same category and month)
-    if (error instanceof Error && error.name === 'MongoError' && (error as any).code === 11000) {
+    if (error instanceof Error && error.name === 'MongoError' && (error as MongoServerError).code === 11000) {
       return NextResponse.json(
         { 
           error: 'Budget for this category and month already exists',

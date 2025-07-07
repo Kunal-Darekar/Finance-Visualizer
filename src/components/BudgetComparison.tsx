@@ -15,12 +15,6 @@ import { format } from 'date-fns';
 import { TRANSACTION_CATEGORIES } from '@/types/transaction';
 import { useData } from '@/lib/context/DataContext';
 
-interface BudgetData {
-  category: string;
-  budget: number;
-  actual: number;
-}
-
 export default function BudgetComparison() {
   const { transactions, budgets, isLoading, error, selectedMonth, setSelectedMonth } = useData();
 
