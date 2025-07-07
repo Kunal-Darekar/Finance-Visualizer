@@ -5,11 +5,12 @@ import { NextRequest } from 'next/server';
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     await dbConnect();
-    const transaction = await Transaction.findById(params.id);
+    const { id } = await context.params;
+    const transaction = await Transaction.findById(id);
     if (!transaction) {
       return NextResponse.json(
         { error: 'Transaction not found' },
@@ -28,13 +29,14 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     await dbConnect();
+    const { id } = await context.params;
     const data = await request.json();
     const transaction = await Transaction.findByIdAndUpdate(
-      params.id,
+      id,
       data,
       { new: true, runValidators: true }
     );
@@ -56,11 +58,12 @@ export async function PUT(
 
 export async function DELETE(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     await dbConnect();
-    const transaction = await Transaction.findByIdAndDelete(params.id);
+    const { id } = await context.params;
+    const transaction = await Transaction.findByIdAndDelete(id);
     if (!transaction) {
       return NextResponse.json(
         { error: 'Transaction not found' },
