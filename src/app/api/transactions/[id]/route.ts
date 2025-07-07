@@ -3,9 +3,11 @@ import dbConnect from '@/lib/db/connection';
 import Transaction from '@/lib/db/models/Transaction';
 import { NextRequest } from 'next/server';
 
+type Params = { params: { id: string } }
+
 export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  _request: NextRequest,
+  { params }: Params
 ) {
   try {
     await dbConnect();
@@ -28,7 +30,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: Params
 ) {
   try {
     await dbConnect();
@@ -55,8 +57,8 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  _request: NextRequest,
+  { params }: Params
 ) {
   try {
     await dbConnect();
