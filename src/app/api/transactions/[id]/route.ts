@@ -1,17 +1,18 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db/connection';
 import Transaction from '@/lib/db/models/Transaction';
+import { NextRequest } from 'next/server';
 
-interface RouteParams {
+type RouteContext = {
   params: {
     id: string;
   };
-}
+};
 
-export async function GET(request: Request, { params }: RouteParams) {
+export async function GET(request: NextRequest, context: RouteContext) {
   try {
     await dbConnect();
-    const transaction = await Transaction.findById(params.id);
+    const transaction = await Transaction.findById(context.params.id);
     if (!transaction) {
       return NextResponse.json(
         { error: 'Transaction not found' },
@@ -28,12 +29,12 @@ export async function GET(request: Request, { params }: RouteParams) {
   }
 }
 
-export async function PUT(request: Request, { params }: RouteParams) {
+export async function PUT(request: NextRequest, context: RouteContext) {
   try {
     await dbConnect();
     const data = await request.json();
     const transaction = await Transaction.findByIdAndUpdate(
-      params.id,
+      context.params.id,
       data,
       { new: true, runValidators: true }
     );
@@ -53,10 +54,10 @@ export async function PUT(request: Request, { params }: RouteParams) {
   }
 }
 
-export async function DELETE(request: Request, { params }: RouteParams) {
+export async function DELETE(request: NextRequest, context: RouteContext) {
   try {
     await dbConnect();
-    const transaction = await Transaction.findByIdAndDelete(params.id);
+    const transaction = await Transaction.findByIdAndDelete(context.params.id);
     if (!transaction) {
       return NextResponse.json(
         { error: 'Transaction not found' },
