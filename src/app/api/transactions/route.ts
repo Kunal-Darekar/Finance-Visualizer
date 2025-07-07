@@ -3,9 +3,7 @@ import dbConnect from '@/lib/db/connection';
 import Transaction from '@/lib/db/models/Transaction';
 import { NextRequest } from 'next/server';
 
-export async function GET(
-  request: NextRequest
-): Promise<NextResponse> {
+export async function GET(): Promise<NextResponse> {
   try {
     await dbConnect();
     const transactions = await Transaction.find()
