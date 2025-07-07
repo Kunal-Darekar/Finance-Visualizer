@@ -4,11 +4,6 @@ import { useMemo } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { useData } from '@/lib/context/DataContext';
 
-interface CategoryData {
-  name: string;
-  value: number;
-}
-
 const COLORS = ['#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#6366F1', '#EC4899', '#8B5CF6', '#14B8A6', '#F97316', '#64748B'];
 
 export default function CategoryPieChart() {
@@ -68,7 +63,7 @@ export default function CategoryPieChart() {
             outerRadius={150}
             fill="#8884d8"
             dataKey="value"
-            label={({ name, value }) => `${name}: $${value.toFixed(2)}`}
+            label={({ name, value }) => (value ? `${name}: $${value.toFixed(2)}` : '')}
           >
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />

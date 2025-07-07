@@ -10,13 +10,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { format, startOfMonth, endOfMonth } from 'date-fns';
+import { format } from 'date-fns';
 import { useData } from '@/lib/context/DataContext';
-
-interface MonthlyData {
-  month: string;
-  total: number;
-}
 
 export default function MonthlyExpensesChart() {
   const { transactions, isLoading, error } = useData();

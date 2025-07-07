@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { TRANSACTION_CATEGORIES, TransactionCategory } from '@/types/transaction';
+import { TRANSACTION_CATEGORIES } from '@/types/transaction';
 
 const transactionSchema = z.object({
   amount: z.number().min(0.01, 'Amount must be greater than 0'),
