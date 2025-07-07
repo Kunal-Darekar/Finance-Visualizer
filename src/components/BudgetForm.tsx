@@ -31,6 +31,7 @@ export default function BudgetForm({ onSuccess }: { onSuccess?: () => void }) {
     resolver: zodResolver(budgetSchema),
     defaultValues: {
       month: format(new Date(), 'yyyy-MM'),
+      category: TRANSACTION_CATEGORIES[0],
     },
   });
 
@@ -61,7 +62,8 @@ export default function BudgetForm({ onSuccess }: { onSuccess?: () => void }) {
       setSuccessMessage('Budget set successfully!');
       reset({
         month: data.month,
-        category: '',
+        category: TRANSACTION_CATEGORIES[0],
+        amount: undefined,
       });
 
       onSuccess?.();
@@ -87,7 +89,6 @@ export default function BudgetForm({ onSuccess }: { onSuccess?: () => void }) {
             errors.category ? 'border-red-500' : 'border-gray-300'
           } shadow-sm focus:ring-2 focus:ring-blue-500`}
         >
-          <option value="">Select a category</option>
           {TRANSACTION_CATEGORIES.map((category) => (
             <option key={category} value={category}>
               {category}
