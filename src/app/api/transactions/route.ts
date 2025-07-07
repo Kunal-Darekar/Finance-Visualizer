@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db/connection';
 import Transaction from '@/lib/db/models/Transaction';
+import { NextRequest } from 'next/server';
 
-export async function GET() {
+export async function GET(
+  request: NextRequest
+): Promise<NextResponse> {
   try {
     await dbConnect();
     const transactions = await Transaction.find()
@@ -23,7 +26,9 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(
+  request: NextRequest
+): Promise<NextResponse> {
   try {
     await dbConnect();
     const data = await request.json();
